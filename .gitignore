@@ -1,0 +1,17 @@
+# Ignore Python virtual environments
+venv/
+
+# Ignore environment files in both frontend and backend
+.env
+frontend/smartchef/.env
+backend/.env
+
+# Ignore Node modules
+frontend/smartchef/node_modules/
+
+# Ignore build files for smartchef React app
+frontend/smartchef/dist/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
