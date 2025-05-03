@@ -14,7 +14,7 @@ function SearchForm({ query, onQueryChange, onSearch }) {
         type="text"
         value={query}
         onChange={onQueryChange}
-        placeholder="Search for recipes..."
+        placeholder="chicken, tortilla, cheese"
         className={styles.input}
       />
       <button type="submit" className={styles.button}>

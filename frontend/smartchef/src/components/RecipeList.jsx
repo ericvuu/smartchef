@@ -2,7 +2,7 @@ import React from "react";
 import RecipeCard from "./RecipeCard";
 import styles from "../styles/RecipeList.module.css";
 
-function RecipeList({ recipes, loading }) {
+function RecipeList({ recipes, loading, query }) {
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -11,8 +11,12 @@ function RecipeList({ recipes, loading }) {
         recipes.map((recipe, index) => (
           <RecipeCard key={recipe.id} recipe={recipe} index={index} />
         ))
+      ) : query ? (
+        <p>No results found. Try searching with different ingredients.</p>
       ) : (
-        <p>No recipes found.</p>
+        <p className={styles["get-started"]}>
+          What's in your fridge?
+        </p>
       )}
     </div>
   );
