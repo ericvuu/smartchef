@@ -1,0 +1,33 @@
+.form {
+  display: flex;
+  gap: var(--gutter);
+  margin-bottom: 1.5rem;
+  font-family: var(--font-family);
+
+  .input {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--card-radius);
+    outline: none;
+
+    &:focus {
+      border-color: var(--input-focus-border-color);
+    }
+  }
+
+  .button {
+    padding: 0.75rem 1rem;
+    background-color: var(--button-bg-color);
+    color: white;
+    border: none;
+    border-radius: var(--card-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--button-hover-color);
+    }
+  }
+}

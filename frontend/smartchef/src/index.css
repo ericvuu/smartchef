@@ -1,0 +1,24 @@
+:root {
+  --primary-color: #E50000;
+  --secondary-color: #2D2D2D;
+  --background-color: #FFFFFF;
+  --text-color: #333;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --max-width: 1200px;
+  --gutter: 1rem;
+  --card-radius: 12px;
+  --button-bg-color: #E50000;
+  --button-hover-color: #C40000;
+  --input-border-color: #DDDDDD;
+  --input-focus-border-color: #E50000;
+  --error-color: #E74C3C;
+  --success-color: #2ECC71;
+}
+
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}

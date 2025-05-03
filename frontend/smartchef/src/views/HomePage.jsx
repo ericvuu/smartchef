@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import RecipeList from "../components/RecipeList";
+import styles from "../styles/HomePage.module.css";
+
 const apiUrl = import.meta.env.VITE_SMARTCHEF_API_URL;
 
 function HomePage() {
@@ -37,18 +39,27 @@ function HomePage() {
  };
 
 
-  return (
-    <div className="home-page">
-      <h1>SmartChef</h1>
-      <SearchForm
-        query={query}
-        onQueryChange={handleQueryChange}
-        onSearch={handleSearch}
-      />
-      {error && <p className="error">{error}</p>}
-      <RecipeList recipes={recipes} loading={loading} />
-    </div>
-  );
+ return (
+   <div className={styles["home-page"]}>
+     <div className={styles.left}>
+       <h1>SmartChef</h1>
+       <p className={styles.description}>
+         Find the best recipes for your favorite dishes. Simply enter a recipe
+         name, and we'll help you discover mouth-watering ideas with detailed
+         instructions and video guides.
+       </p>
+       <SearchForm
+         query={query}
+         onQueryChange={handleQueryChange}
+         onSearch={handleSearch}
+       />
+     </div>
+     <div className={styles.right}>
+       {error && <p className={styles.error}>{error}</p>}
+       <RecipeList recipes={recipes} loading={loading} />
+     </div>
+   </div>
+ );
 }
 
 export default HomePage;

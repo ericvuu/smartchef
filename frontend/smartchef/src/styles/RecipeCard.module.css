@@ -1,0 +1,43 @@
+.recipe-card {
+  background-color: #fef7f1;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  /* Remove the default rotation from here since it's now dynamic */
+  transform: rotate(0deg);
+
+  &:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+
+  .recipe-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+
+    .recipe-card-image {
+      width: 100%;
+      display: block;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .recipe-card-content {
+      padding: 1rem;
+
+      .recipe-title {
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        gap: 0.5rem;
+
+        .recipe-icon {
+          color: var(--button-bg-color);
+        }
+      }
+    }
+  }
+}

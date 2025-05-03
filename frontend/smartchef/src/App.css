@@ -1,0 +1,30 @@
+button {
+  background-color: var(--button-bg-color);
+  color: white;
+  border-radius: var(--card-radius);
+  padding: var(--gutter);
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--button-hover-color);
+  }
+}
+
+input {
+  border: 1px solid var(--input-border-color);
+  padding: var(--gutter);
+  border-radius: var(--card-radius);
+
+  &:focus {
+    border-color: var(--input-focus-border-color);
+  }
+}
+
+.error {
+  color: var(--error-color);
+}
+
+.success {
+  color: var(--success-color);
+}
