@@ -3,13 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 import requests
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-SPOONACULAR_API_KEY = os.getenv("SPOONACULAR_API_KEY")
-YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
+from config import SPOONACULAR_API_KEY, YOUTUBE_API_KEY
 
 SPOONACULAR_URL_RECIPES = "https://api.spoonacular.com/recipes/complexSearch"
 SPOONACULAR_URL_RECIPE_DETAILS = "https://api.spoonacular.com/recipes/"
@@ -54,7 +48,6 @@ async def get_recipes_with_details(query: str, page: int = 1, limit: int = 25):
 
 @app.get("/recipe/{recipe_id}")
 async def get_recipe_with_details(recipe_id: int):
-
     recipe = fetch_recipe_details(recipe_id)
     return {"recipe": recipe}
 
@@ -92,11 +85,31 @@ def fetch_recipe_details(recipe_id: int):
     params = {
         "apiKey": SPOONACULAR_API_KEY
     }
+
+    # Fetch recipe details (general info)
     response = requests.get(f"{SPOONACULAR_URL_RECIPE_DETAILS}/{recipe_id}/information", params=params)
     if response.status_code != 200:
         raise HTTPException(status_code=500, detail=f"Error fetching details for recipe {recipe_id}.")
 
-    return response.json()
+    recipe_data = response.json()
+
+    # Fetch analyzed instructions if available
+    instructions_response = requests.get(f"{SPOONACULAR_URL_RECIPE_DETAILS}/{recipe_id}/analyzedInstructions", params=params)
+
+    if instructions_response.status_code == 404:
+        # Handle the case where the instructions are not found
+        recipe_data['instructions'] = "No analyzed instructions available for this recipe."
+    elif instructions_response.status_code == 200:
+        instructions_data = instructions_response.json()
+        if instructions_data:
+            recipe_data['instructions'] = instructions_data
+        else:
+            recipe_data['instructions'] = "Instructions found, but no steps available."
+    else:
+        # Handle other errors
+        recipe_data['instructions'] = "Error fetching analyzed instructions."
+
+    return recipe_data
 
 def fetch_youtube_videos(query: str):
     """Fetch YouTube videos related to the recipe query."""

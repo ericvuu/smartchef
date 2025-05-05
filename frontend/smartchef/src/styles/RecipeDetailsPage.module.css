@@ -1,0 +1,110 @@
+.recipe-details-page {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-family);
+  color: var(--text-color);
+}
+
+.recipe-details-page-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.recipe-details-page-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.recipe-details-page-section-title {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.recipe-details-page-ingredients-list {
+  padding-left: 1.25rem;
+  margin-top: 1rem;
+}
+
+.recipe-details-page-ingredient-item {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.recipe-details-page-instructions {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.recipe-details-page-error {
+  color: var(--error-color);
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.recipe-details-page-wine-pairing {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-left: 4px solid var(--primary-color);
+  background-color: #fff0f0;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.recipe-details-page-wine-image {
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  width: 100px;
+}
+
+.recipe-details-page-wineLink {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--button-bg-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.recipe-details-page-wineLink:hover {
+  color: var(--button-hover-color);
+}
+
+@media (max-width: 768px) {
+  .recipe-details-page {
+    padding: 1rem;
+  }
+
+  .recipe-details-page-title {
+    font-size: 1.8rem;
+  }
+
+  .recipe-details-page-image {
+    max-height: 300px;
+  }
+
+  .recipe-details-page-section-title {
+    font-size: 1.5rem;
+  }
+
+  .recipe-details-page-ingredient-item {
+    font-size: 1rem;
+  }
+
+  .recipe-details-page-instructions {
+    font-size: 1rem;
+  }
+}

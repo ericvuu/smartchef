@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styles from "../styles/YouTubeVideos.module.css";
+
 const apiUrl = import.meta.env.VITE_SMARTCHEF_API_URL;
 
 function YouTubeVideos({ recipeTitle }) {
@@ -23,22 +25,27 @@ function YouTubeVideos({ recipeTitle }) {
     fetchYouTubeVideos();
   }, [recipeTitle]);
 
-  if (loading) return <p>Loading YouTube videos...</p>;
+  if (loading)
+    return <p className={styles["loading"]}>Loading YouTube videos...</p>;
 
-  if (error) return <p className="error">{error}</p>;
+  if (error) return <p className={styles["error"]}>{error}</p>;
 
   return (
-    <div className="youtube-videos">
-      <h3>Related YouTube Videos</h3>
+    <div className={styles["youtube-videos"]}>
+      <h3 className={styles["title"]}>Related YouTube Videos</h3>
       {videos.length > 0 ? (
-        videos.map((video, index) => (
-          <div key={index}>
-            <h4>{video.title}</h4>
-            <div dangerouslySetInnerHTML={{ __html: video.embed_html }} />
-          </div>
-        ))
+        <div className={styles["video-grid"]}>
+          {videos.map((video, index) => (
+            <div key={index} className={styles["video-card"]}>
+              <div className={styles["video-thumbnail"]}>
+                <div dangerouslySetInnerHTML={{ __html: video.embed_html }} />
+              </div>
+              <h4 className={styles["video-title"]}>{video.title}</h4>
+            </div>
+          ))}
+        </div>
       ) : (
-        <p>No videos found.</p>
+        <p className={styles["no-videos"]}>No videos found.</p>
       )}
     </div>
   );

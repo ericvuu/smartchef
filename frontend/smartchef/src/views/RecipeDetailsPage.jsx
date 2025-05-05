@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import YouTubeVideos from "../components/YouTubeVideos";
+import styles from "../styles/RecipeDetailsPage.module.css";
 
 const apiUrl = import.meta.env.VITE_SMARTCHEF_API_URL;
 
@@ -13,17 +14,12 @@ function RecipeDetailsPage() {
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
-      if (!id) {
-        setError("No recipe ID found.");
-        setLoading(false);
-        return;
-      }
-
       try {
         const response = await axios.get(`${apiUrl}/recipe/${id}`);
+        console.log(response.data.recipe);
         setRecipe(response.data.recipe);
-      } catch (error) {
-        setError("An error occurred while fetching the recipe details.");
+      } catch (err) {
+        setError("Error fetching recipe details.");
       } finally {
         setLoading(false);
       }
@@ -36,29 +32,27 @@ function RecipeDetailsPage() {
   if (error) return <p className="error">{error}</p>;
   if (!recipe) return <p>No recipe data found.</p>;
 
-  const renderIngredients = () =>
-    recipe.extendedIngredients?.map((ingredient, index) => (
-      <li key={index}>
-        {ingredient.amount} {ingredient.unit} {ingredient.name}
-      </li>
-    ));
-
   const renderWinePairing = () => {
     if (recipe.winePairing?.productMatches?.length) {
       const product = recipe.winePairing.productMatches[0];
       return (
-        <div>
+        <div className={styles["wine-pairing"]}>
           <h3>Wine Pairing</h3>
           <p>{recipe.winePairing.pairingText}</p>
           <h4>{product.title}</h4>
           <img
             src={product.imageUrl}
             alt={product.title}
-            style={{ width: "100px" }}
+            className={styles["wine-image"]}
           />
           <p>{product.description}</p>
           <p>{product.price}</p>
-          <a href={product.link} target="_blank" rel="noopener noreferrer">
+          <a
+            href={product.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles["wine-link"]}
+          >
             Buy it here
           </a>
         </div>
@@ -67,15 +61,37 @@ function RecipeDetailsPage() {
     return null;
   };
 
+  const renderSteps = () => {
+    const analyzedSteps = recipe.analyzedInstructions?.[0]?.steps;
+    const instructions = recipe.instructions;
+
+    if (analyzedSteps && analyzedSteps.length > 0) {
+      return (
+        <ol className="list-decimal pl-5 space-y-2">
+          {analyzedSteps.map(({ number, step }) => (
+            <li key={number}>{step}</li>
+          ))}
+        </ol>
+      );
+    } else if (typeof instructions === "string" && instructions.trim() !== "") {
+      return (
+        <div className="space-y-2">
+          {instructions.split(". ").map((sentence, idx) => (
+            <p key={idx}>{sentence.trim()}.</p>
+          ))}
+        </div>
+      );
+    } else {
+      return <p>No instructions available for this recipe.</p>;
+    }
+  };
+
   return (
-    <div className="recipe-details-page">
-      <h2>{recipe.title}</h2>
-      <img src={recipe.image} alt={recipe.title} />
-      <h3>Ingredients</h3>
-      <ul>{renderIngredients()}</ul>
-      <h3>Instructions</h3>
-      <div dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
+    <div className={styles["recipe-details-page"]}>
+      <h2 className={styles["title"]}>{recipe.title}</h2>
+      <img src={recipe.image} alt={recipe.title} className={styles["image"]} />
       {renderWinePairing()}
+      {renderSteps()}
       <YouTubeVideos recipeTitle={recipe.title} />
     </div>
   );
